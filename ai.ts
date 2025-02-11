@@ -76,7 +76,6 @@ export const findBestMove = (
   let bestScore = -Infinity;
   const bestMoves: typeof validMoves = [];
 
-  // Iterative Deepening Minimax
   for (let currentDepth = 1; currentDepth <= depth; currentDepth++) {
     const stack: any[] = [{
       boards,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+//import LinearGradient from 'react-native-linear-gradient';
 
 type PlayerNamesModalProps = {
   visible: boolean;
@@ -14,7 +14,7 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames }: PlayerNamesModalP
   return (
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.modalContainer}>
-        <LinearGradient colors={['#FFD700', '#FF8C00']} style={styles.modalContent}>
+        <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Enter Player Names</Text>
 
           <TextInput
@@ -36,11 +36,11 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames }: PlayerNamesModalP
           <TouchableOpacity 
             onPress={() => onSubmit(player1 || 'Player 1', player2 || 'Player 2')}
           >
-            <LinearGradient colors={['#00E1FF', '#0078FF']} style={styles.modalButton}>
+            <View style={styles.modalButton}>
               <Text style={styles.modalButtonText}>Start Game</Text>
-            </LinearGradient>
+            </View>
           </TouchableOpacity>
-        </LinearGradient>
+        </View>
       </View>
     </Modal>
   );
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: '80%',
+    backgroundColor: 'black',
   },
   modalTitle: {
     fontSize: 20,
@@ -73,11 +74,22 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 16,
     backgroundColor: 'white',
+    color:'red'
   },
   modalButton: {
     padding: 12,
-    borderRadius: 5,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 0,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+    borderWidth: 4,
+    borderColor: '#FFFFFF',
+    backgroundColor: '#0000FF',
   },
   modalButtonText: {
     color: 'white',

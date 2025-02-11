@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   board: {
     backgroundColor: '#fff',
     padding: 8,
-    borderRadius: 8,
+    borderRadius: 0,
     margin: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },

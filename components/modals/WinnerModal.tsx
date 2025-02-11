@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+
 
 type WinnerModalProps = {
   visible: boolean;
@@ -12,22 +12,22 @@ type WinnerModalProps = {
 const WinnerModal = ({ visible, winner, onPlayAgain, onMenu }: WinnerModalProps) => (
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.modalContainer}>
-        <LinearGradient colors={['#FFD700', '#FF8C00']} style={styles.modalContent}>
+        <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Game Over!</Text>
           <Text style={styles.winnerText}>{(winner=='You')?(`You won!`):(`${winner} wins`)}</Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={onPlayAgain}>
-              <LinearGradient colors={['#FF66B2', '#FF1493']} style={styles.button}>
+              <View style={styles.button}>
                 <Text style={styles.buttonText}>Play Again</Text>
-              </LinearGradient>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity  onPress={onMenu}>
-              <LinearGradient colors={['#00E1FF', '#0078FF']} style={[styles.button, styles.menuButton]}>
+              <View style={[styles.button, styles.menuButton]}>
                 <Text style={styles.buttonText}>Main Menu</Text>
-              </LinearGradient>
+              </View>
             </TouchableOpacity>
           </View>
-        </LinearGradient>
+        </View>
       </View>
     </Modal>
 );
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     padding: 25,
     borderRadius: 10,
     width: '80%',
@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: 'black',
+    color: 'white',
   },
   winnerText: {
     fontSize: 20,
-    color: 'black',
+    color: 'white',
     fontWeight: '600',
     marginBottom: 25,
   },
@@ -64,15 +64,23 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   button: {
-    backgroundColor: '#4a90e2',
     paddingVertical: 12,
     paddingHorizontal: 20,
-    borderRadius: 5,
+    borderRadius: 0,
     minWidth: 100,
     alignItems: 'center',
+    padding: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+    borderWidth: 4,
+    borderColor: '#FFFFFF',
+    backgroundColor: '#0000FF',
   },
   menuButton: {
-    backgroundColor: '#666',
+    backgroundColor: '#0000FF',
   },
   buttonText: {
     color: 'white',

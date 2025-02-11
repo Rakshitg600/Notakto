@@ -8,12 +8,7 @@ import {
   Easing,
   Dimensions,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 
-type MenuProps = {
-  startGame: (mode: 'vsPlayer' | 'vsComputer') => void;
-  showTutorial: () => void;
-};
 
 const BUTTONS = [
   { label: 'Play vs Player', action: 'vsPlayer' as const },
@@ -21,15 +16,12 @@ const BUTTONS = [
   { label: 'Tutorial', action: 'tutorial' as const },
 ];
 
-const Menu: React.FC<MenuProps> = ({ startGame, showTutorial }) => {
-  // Create animated values for each button
+const Menu: React.FC<{ startGame: (mode: 'vsPlayer' | 'vsComputer') => void; showTutorial: () => void }> = ({ startGame, showTutorial }) => {
   const buttonScales = useRef(BUTTONS.map(() => new Animated.Value(0))).current;
-  // Animate the title separately
   const titleTranslateY = useRef(new Animated.Value(-50)).current;
   const titleOpacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Animate the title (slide in and fade in)
     Animated.parallel([
       Animated.timing(titleTranslateY, {
         toValue: 0,
@@ -44,7 +36,6 @@ const Menu: React.FC<MenuProps> = ({ startGame, showTutorial }) => {
       }),
     ]).start();
 
-    // Animate buttons with staggered bounce
     Animated.stagger(150,
       buttonScales.map(anim =>
         Animated.spring(anim, {
@@ -57,7 +48,6 @@ const Menu: React.FC<MenuProps> = ({ startGame, showTutorial }) => {
     ).start();
   }, [buttonScales, titleOpacity, titleTranslateY]);
 
-  // Handle button press animation (scale down momentarily)
   const handlePressIn = (anim: Animated.Value) => {
     Animated.spring(anim, {
       toValue: 0.9,
@@ -72,7 +62,6 @@ const Menu: React.FC<MenuProps> = ({ startGame, showTutorial }) => {
       useNativeDriver: true,
       friction: 3,
     }).start(() => {
-      // Call the corresponding action after the animation
       if (action === 'tutorial') {
         showTutorial();
       } else {
@@ -82,60 +71,43 @@ const Menu: React.FC<MenuProps> = ({ startGame, showTutorial }) => {
   };
 
   return (
-    <LinearGradient colors={['#FFDEE9', '#B5FFFC']} style={styles.gradientContainer}>
-      <View style={styles.menuContainer}>
+    <View style={styles.container}>
+      <Animated.View
+        style={[
+          styles.titleContainer,
+          {
+            transform: [{ translateY: titleTranslateY }],
+            opacity: titleOpacity,
+          },
+        ]}
+      >
+        <Text style={styles.title}>Notakto</Text>
+      </Animated.View>
+      {BUTTONS.map((button, index) => (
         <Animated.View
-          style={[
-            styles.titleContainer,
-            {
-              transform: [{ translateY: titleTranslateY }],
-              opacity: titleOpacity,
-            },
-          ]}
+          key={button.label}
+          style={[styles.buttonWrapper, { transform: [{ scale: buttonScales[index] }] }]}
         >
-          <Text style={styles.title}>Notakto</Text>
-        </Animated.View>
-
-        {BUTTONS.map((button, index) => (
-          <Animated.View
-            key={button.label}
-            style={[
-              styles.buttonWrapper,
-              { transform: [{ scale: buttonScales[index] }] },
-            ]}
+          <TouchableWithoutFeedback
+            onPressIn={() => handlePressIn(buttonScales[index])}
+            onPressOut={() => handlePressOut(buttonScales[index], button.action)}
           >
-            <TouchableWithoutFeedback
-              onPressIn={() => handlePressIn(buttonScales[index])}
-              onPressOut={() => handlePressOut(buttonScales[index], button.action)}
-            >
-              <LinearGradient
-                colors={
-                  button.action === 'vsPlayer'
-                    ? ['#FFB347', '#FFCC33']
-                    : button.action === 'vsComputer'
-                    ? ['#B19CD9', '#9B59B6']
-                    : ['#7ED321', '#417505']
-                }
-                style={styles.menuButton}
-              >
-                <Text style={styles.menuButtonText}>{button.label}</Text>
-              </LinearGradient>
-            </TouchableWithoutFeedback>
-          </Animated.View>
-        ))}
-      </View>
-    </LinearGradient>
+            <View style={styles.menuButton}>
+              <Text style={styles.menuButtonText}>{button.label}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        </Animated.View>
+      ))}
+    </View>
   );
 };
 
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  gradientContainer: {
+  container: {
     flex: 1,
-  },
-  menuContainer: {
-    flex: 1,
+    backgroundColor: '#000',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -145,11 +117,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 48,
-    fontWeight: 'bold',
-    color: '#4A4A4A',
-    textShadowColor: '#FFCC00',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 5,
+    fontFamily: 'Pixelify_Sans',
+    color: '#FF0000',
+    textShadowColor: '#FFFF00',
+    textShadowOffset: { width: 4, height: 4 },
+    textShadowRadius: 0,
+    letterSpacing: 2,
   },
   buttonWrapper: {
     marginVertical: 10,
@@ -157,19 +130,18 @@ const styles = StyleSheet.create({
   menuButton: {
     paddingVertical: 15,
     paddingHorizontal: 20,
-    borderRadius: 20,
+    borderRadius: 0,
     width: width * 0.7,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
+    borderWidth: 4,
+    borderColor: '#FFFFFF',
+    backgroundColor: '#0000FF',
+    shadowColor: 'none',
   },
   menuButtonText: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#fff',
+    fontFamily: 'Pixelify_Sans',
+    color: '#FFFFFF',
   },
 });
 

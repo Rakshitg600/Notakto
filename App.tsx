@@ -107,7 +107,7 @@ const App = () => {
       const rewards = calculateRewards(isHumanWinner, difficulty, numberOfBoards, boardSize);
   
       if (isHumanWinner) setCoins(c => c + rewards.coins);
-      setExperience(e => e + rewards.xp);
+      if (isHumanWinner)setExperience(e => e + rewards.xp);
   
       // Set winner name based on player numbers
       const winnerName = winner === 1 ? player1Name : player2Name;
@@ -183,7 +183,16 @@ const App = () => {
       Alert.alert('No Moves', 'There are no moves to undo!');
     }
   };
-
+  const handleSkip = () => {
+    if (coins >= 200) {
+      setCoins(c => c - 200);
+      //setBoards(gameHistory[gameHistory.length - 2]);
+      //setGameHistory(h => h.slice(0, -1));
+      setCurrentPlayer(prev => prev === 1 ? 2 : 1);
+    } else {
+      Alert.alert('Insufficient Coins', 'You need at least 200 coins to skip a move!');
+    }
+  };
   const handleResetNames = () => {
     setShowNameModal(true);
   };
@@ -197,6 +206,7 @@ const App = () => {
           makeMove={handleMove}
           isBoardDead={isBoardDead}
           onUndo={handleUndo}
+          onSkip={handleSkip}
           undoMove={handleUndo}
           resetGame={() => resetGame(numberOfBoards, boardSize)}
           exitToMenu={() => setGameMode(null)}

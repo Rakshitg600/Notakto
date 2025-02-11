@@ -54,13 +54,13 @@ const BoardConfigModal = ({
 
           <View style={styles.footer}>
             <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-              <Text style={styles.buttonText}>Cancel</Text>
+              <Text style={[styles.buttonText,styles.cancelText]}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity 
               style={styles.confirmButton}
               onPress={() => onConfirm(selectedBoards, selectedSize)}
             >
-              <Text style={styles.buttonText}>Apply</Text>
+              <Text style={[styles.buttonText,styles.cancelText]}>Apply</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     padding: 20,
     borderRadius: 10,
     width: '90%',
@@ -87,11 +87,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 15,
     textAlign: 'center',
+    color: 'white'
   },
   sectionTitle: {
     fontSize: 16,
     fontWeight: '600',
     marginVertical: 10,
+    color:'white'
   },
   buttonGroup: {
     flexDirection: 'row',
@@ -101,13 +103,13 @@ const styles = StyleSheet.create({
   },
   sizeButton: {
     padding: 12,
-    borderRadius: 8,
+    borderRadius: 0,
     backgroundColor: '#e0e0e0',
     minWidth: 60,
     alignItems: 'center',
   },
   selected: {
-    backgroundColor: '#4a90e2',
+    backgroundColor: 'red',
   },
   buttonText: {
     color: '#333',
@@ -119,19 +121,41 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   cancelButton: {
-    backgroundColor: '#666',
     padding: 12,
-    borderRadius: 8,
+    borderRadius: 0,
     flex: 1,
     marginRight: 8,
     alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+    borderWidth: 4,
+    borderColor: '#FFFFFF',
+    backgroundColor: '#0000FF',
   },
   confirmButton: {
-    backgroundColor: '#4a90e2',
     padding: 12,
-    borderRadius: 8,
+    borderRadius: 0,
     flex: 1,
+    marginRight: 8,
     alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+    borderWidth: 4,
+    borderColor: '#FFFFFF',
+    backgroundColor: '#0000FF',
+  },
+  cancelText:{
+    color: 'white'
   },
 });
 
