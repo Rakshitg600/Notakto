@@ -43,8 +43,10 @@ Positive behaviors that help build a welcoming community:
 - 💡 Give and accept constructive feedback gracefully  
 - 🙏 Take responsibility for mistakes and learn from them  
 - 🌟 Focus on what benefits the **whole community**
-- 
-![Teamwork GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTBhMDdseWtraWtmYWVzamx1eTg1M2FwZjdzNXJ2YjI5anIzdTAweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ML15sUZFNyMy0Yv55m/giphy.gif)
+
+<p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTBhMDdseWtraWtmYWVzamx1eTg1M2FwZjdzNXJ2YjI5anIzdTAweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ML15sUZFNyMy0Yv55m/giphy.gif" width="350" alt="Teamwork GIF">
+</p>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
@@ -55,8 +57,10 @@ The following actions are not tolerated:
 - ❌ Public or private insults and derogatory comments  
 - ❌ Publishing private information without consent  
 - ❌ Disruptive, unprofessional, or harmful behavior
-  
-![No GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTBhMDdseWtraWtmYWVzamx1eTg1M2FwZjdzNXJ2YjI5anIzdTAweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HscDLzkO8EOTmgkhQP/giphy.gif)
+
+<p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTBhMDdseWtraWtmYWVzamx1eTg1M2FwZjdzNXJ2YjI5anIzdTAweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HscDLzkO8EOTmgkhQP/giphy.gif" width="350" alt="No GIF">
+</p>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
@@ -65,9 +69,11 @@ The following actions are not tolerated:
 Community leaders are responsible for:  
 - Clarifying and enforcing this Code of Conduct  
 - Taking fair corrective action when necessary  
-- Maintaining confidentiality of all reports  
+- Maintaining confidentiality of all reports
 
-![Protection GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTBhMDdseWtraWtmYWVzamx1eTg1M2FwZjdzNXJ2YjI5anIzdTAweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OumCa12QC9CIvBe2c1/giphy.gif)
+<p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTBhMDdseWtraWtmYWVzamx1eTg1M2FwZjdzNXJ2YjI5anIzdTAweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OumCa12QC9CIvBe2c1/giphy.gif" width="350" alt="Protection GIF">
+</p>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
@@ -81,13 +87,11 @@ If you see behavior that violates this Code of Conduct, please **report it immed
 
 We guarantee that **no retaliation will occur** against those who report in good faith. 🙌  
 
-![Reporting GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzk0cm5zdjV5bHE2b3hlcDNqb2VxbG5naGU3bzIxcjRzejQzcWk0cyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/qgQUggAC3Pfv687qPC/giphy.gif)  
+<p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzk0cm5zdjV5bHE2b3hlcDNqb2VxbG5naGU3bzIxcjRzejQzcWk0cyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/qgQUggAC3Pfv687qPC/giphy.gif" width="350" alt="Reporting GIF">
+</p>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
-
-<p align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NzJpdTNlbWM2cWNmdWlicHQ4bGx1dmozeWp0Y2ExbHdxaGxoaGhnbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HscDLzkO8EOTmgkhQP/giphy.gif" width="250" alt="Stop GIF">
-</p>
 
 ## 🌍 Scope  
 
@@ -99,7 +103,9 @@ Whether you are **contributing code, writing documentation, attending discussion
 
 Examples: official email, social media accounts, events, or meetups.  
 
-![Scope GIF](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTU4b3d5cXFndndqem14Ym1uOG95cXUxbWpvcTdzMDN3YjR1ZnRqayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/H03PuVdwREB21ANkLX/giphy.gif)
+<p align="center">
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTU4b3d5cXFndndqem14Ym1uOG95cXUxbWpvcTdzMDN3YjR1ZnRqayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/H03PuVdwREB21ANkLX/giphy.gif" width="350" alt="Scope GIF">
+</p>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
@@ -108,8 +114,10 @@ Consequences for violations:
 
 1. **Correction** 📝  
 - Private written warning  
-- Request for a public apology  
-![Warning GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTBhMDdseWtraWtmYWVzamx1eTg1M2FwZjdzNXJ2YjI5anIzdTAweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/26tn33aiTi1jkl6H6/giphy.gif)  
+- Request for a public apology
+  <p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTBhMDdseWtraWtmYWVzamx1eTg1M2FwZjdzNXJ2YjI5anIzdTAweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/26tn33aiTi1jkl6H6/giphy.gif" width="350" alt="Warning GIF">
+</p> 
 
 2. **Warning** ⚠️  
 - Official warning with conditions  
@@ -145,4 +153,6 @@ This is more than just rules — it’s about building a community where **creat
 
 Let’s make **Notakto** a place where everyone feels welcome to **learn, contribute, and innovate**. 🍰🤖💡  
 
-![Community GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGxnMGpmaDl3MTR2aDIwZjlneTdkcHZkNGRlbTkxbm83ZHRoMnN4dCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/wIVA0zh5pt0G5YtcAL/giphy.gif)
+<p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGxnMGpmaDl3MTR2aDIwZjlneTdkcHZkNGRlbTkxbm83ZHRoMnN4dCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/wIVA0zh5pt0G5YtcAL/giphy.gif" width="350" alt="Community GIF">
+</p> 
