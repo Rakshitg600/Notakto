@@ -20,16 +20,31 @@ jobs:
           node-version: 18
           cache: 'pnpm'
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8 # adjust if project uses different pnpm version
+      - name: Enable Corepack and prepare pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            pnpm install --frozen-lockfile
+          else
+            npm ci
+          fi
 
-      - name: Run Lint (if script exists)
-        run: pnpm run lint --if-present
+      - name: Run Lint (if present)
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            pnpm run lint --if-present
+          else
+            npm run lint --if-present
+          fi
 
-      - name: Run Tests (if script exists)
-        run: pnpm test --if-present
+      - name: Run Tests (if present)
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            pnpm test --if-present
+          else
+            npm test --if-present
+          fi
