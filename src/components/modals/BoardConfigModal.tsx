@@ -12,7 +12,7 @@ const BoardConfigModal = ({visible, currentBoards, currentSize, onConfirm, onCan
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          
+
           <Text style={styles.sectionTitle}>Number of Boards</Text>
           <View style={styles.buttonGroup}>
             {[1, 2, 3, 4, 5].map(num => (
@@ -43,7 +43,7 @@ const BoardConfigModal = ({visible, currentBoards, currentSize, onConfirm, onCan
             <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
               <Text style={styles.buttonText}>Cancel</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.confirmButton}
               onPress={() => onConfirm(selectedBoards, selectedSize)}
             >

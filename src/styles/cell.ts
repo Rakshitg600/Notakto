@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   cell: {
@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   },
   cellText: {
     fontSize: 100,
-    fontFamily: "pixelvt",
+    fontFamily: 'pixelvt',
     color: 'red',
   },
 });

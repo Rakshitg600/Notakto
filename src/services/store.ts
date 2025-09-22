@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 type CoinStore = {
     coins: number;
@@ -12,8 +12,8 @@ type XPStore = {
 export const useCoins = create<CoinStore>((set) => ({
   coins: 1000,
   setCoins: (newCoins: number) => set({ coins: newCoins }),
-}))
+}));
 export const useXP = create<XPStore>((set) => ({
   XP: 0,
   setXP: (newXP: number) => set({ XP: newXP }),
-}))
+}));

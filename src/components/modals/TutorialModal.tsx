@@ -9,13 +9,13 @@ const TutorialModal = ({ visible, onClose }: TutorialModalProps) => (
     <View style={styles.modalContainer}>
       <View style={styles.modalContent}>
         <Text style={styles.modalTitle}>How   to   Play Notakto</Text>
-        
+
         <Text style={styles.modalText}>
-          • Both players use X marks{"\n"}
-          • Game is played on three 3x3 boards{"\n"}
-          • Players alternate placing Xs{"\n"}
-          • Any board with 3 Xs in a row becomes dead{"\n"}
-          • Last player to make a valid move loses{"\n"}
+          • Both players use X marks{'\n'}
+          • Game is played on three 3x3 boards{'\n'}
+          • Players alternate placing Xs{'\n'}
+          • Any board with 3 Xs in a row becomes dead{'\n'}
+          • Last player to make a valid move loses{'\n'}
           • Strategy: Force opponent to make final move!
         </Text>
 

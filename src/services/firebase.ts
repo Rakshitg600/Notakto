@@ -6,7 +6,7 @@ import { getFirestore, doc, setDoc, getDoc } from '@react-native-firebase/firest
 // Initialize Firebase services
 const auth = getAuth();
 const firestore = getFirestore();
-const WEB_CLIENT_ID="200189691429-6if4geqfh2dvnuqp5bev5oa7mnjove4q.apps.googleusercontent.com"
+const WEB_CLIENT_ID = '200189691429-6if4geqfh2dvnuqp5bev5oa7mnjove4q.apps.googleusercontent.com';
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID,
 });
@@ -17,7 +17,7 @@ export const signInWithGoogle = async () => {
     await GoogleSignin.signIn();
     const { idToken } = await GoogleSignin.getTokens();
     if (!idToken) {
-      throw new Error("Google Sign-In failed: No ID Token received.");
+      throw new Error('Google Sign-In failed: No ID Token received.');
     }
     const credential = GoogleAuthProvider.credential(idToken);
     const userCredential = await signInWithCredential(auth, credential);

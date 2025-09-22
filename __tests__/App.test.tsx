@@ -1,8 +1,10 @@
-/**
- * @format
- */
-
 import React from 'react';
 import App from '../src/App';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 
+describe('App component', () => {
+  test('renders correctly', () => {
+    render(<App />);
+    // Add more specific tests as needed
+  });
+});

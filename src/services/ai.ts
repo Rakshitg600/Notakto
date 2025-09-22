@@ -45,7 +45,7 @@ function getCellValue(cellIndex: number, boardSize: number): number {
     const center = (boardSize - 1) / 2;
     for (let i = 0; i < boardSize * boardSize; i++) {
       const r = Math.floor(i / boardSize), c = i % boardSize;
-      m.set(i, - (Math.abs(r - center) + Math.abs(c - center)));
+      m.set(i, -(Math.abs(r - center) + Math.abs(c - center)));
     }
     cellValueCache.set(boardSize, m);
   }
@@ -61,9 +61,9 @@ export function getValidMoves(
 ): { boardIndex: number; cellIndex: number }[] {
   const moves: { boardIndex: number; cellIndex: number }[] = [];
   for (let b = 0; b < boards.length; b++) {
-    if (isBoardDead(boards[b], boardSize)) continue;
+    if (isBoardDead(boards[b], boardSize)) {continue;}
     boards[b].forEach((cell, i) => {
-      if (cell === '') moves.push({ boardIndex: b, cellIndex: i });
+      if (cell === '') {moves.push({ boardIndex: b, cellIndex: i });}
     });
   }
   // order by center‑bias
@@ -91,7 +91,7 @@ export function findBestMove(
   _numberOfBoards: number
 ): { boardIndex: number; cellIndex: number } | null {
   const moves = getValidMoves(boards, boardSize);
-  if (moves.length === 0) return null;
+  if (moves.length === 0) {return null;}
 
   // random‑play chance based on difficulty
   const optimalChance = (difficulty - 1) / 4; // 0 @1 → 1 @5
@@ -110,13 +110,13 @@ export function findBestMove(
   const nonKilling: typeof moves = [];
   for (const m of moves) {
     const next = updateBoards(boards, m);
-    if (isBoardDead(next[m.boardIndex], boardSize)) killing.push(m);
-    else nonKilling.push(m);
+    if (isBoardDead(next[m.boardIndex], boardSize)) {killing.push(m);}
+    else {nonKilling.push(m);}
   }
 
   if (liveCount % 2 === 1) {
     // winning position → leave boards alive
-    if (nonKilling.length) return nonKilling[0];
+    if (nonKilling.length) {return nonKilling[0];}
     return moves[0];
   } else {
     // losing position → kill one to flip parity

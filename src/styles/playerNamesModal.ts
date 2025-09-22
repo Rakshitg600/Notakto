@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   modalContainer: {
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   modalButton: {
     padding: 12,
     alignItems: 'center',
-    backgroundColor: 'blue'
+    backgroundColor: 'blue',
   },
   modalButtonText: {
     color: 'white',

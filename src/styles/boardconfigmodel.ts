@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     modalContainer: {
@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
       fontSize: 35,
       fontFamily: 'pixelfont',
       marginVertical: 10,
-      color: 'red'
+      color: 'red',
     },
     buttonGroup: {
       flexDirection: 'row',
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
     },
     selected: {
-      backgroundColor: 'red'
+      backgroundColor: 'red',
     },
 
     buttonText: {
@@ -58,4 +58,3 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
     },
   });
-  

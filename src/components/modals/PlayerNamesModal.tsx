@@ -9,7 +9,7 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames }: PlayerNamesModalP
   const [player2, setPlayer2] = useState(initialNames?.[1] || 'Player 2');
   const handleSubmit = () => {
     if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
-      Alert.alert("Duplicate Names", "Player 1 and Player 2 cannot have the same name.");
+      Alert.alert('Duplicate Names', 'Player 1 and Player 2 cannot have the same name.');
       return;
     }
     onSubmit(player1 || 'Player 1', player2 || 'Player 2');
@@ -36,7 +36,7 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames }: PlayerNamesModalP
             autoCapitalize="words"
           />
 
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={handleSubmit}
           >
             <View style={styles.modalButton}>

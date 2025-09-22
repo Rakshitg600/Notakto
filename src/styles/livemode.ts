@@ -1,25 +1,25 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "black",
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'black',
     },
     waitingContainer: {
-        alignItems: "center",
+        alignItems: 'center',
         gap: 20,
     },
     waitingText: {
         fontSize: 25,
-        color: "white",
-        fontFamily: "pixelvt",
+        color: 'white',
+        fontFamily: 'pixelvt',
     },
     turnText: {
         fontSize: 50,
         marginBottom: 20,
-        fontFamily: "pixelvt",
-        color: "red",
+        fontFamily: 'pixelvt',
+        color: 'red',
     },
     boardsContainer: {
         flexDirection: 'row',
@@ -31,26 +31,26 @@ export const styles = StyleSheet.create({
     board: {
         width: 320,
         height: 320,
-        flexDirection: "row",
-        flexWrap: "wrap",
-        backgroundColor: "black",
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        backgroundColor: 'black',
     },
     blockedBoard: {
         opacity: 0.5,
     },
     cell: {
-        width: "33.333%",
-        height: "33.333%",
-        justifyContent: "center",
-        alignItems: "center",
+        width: '33.333%',
+        height: '33.333%',
+        justifyContent: 'center',
+        alignItems: 'center',
         borderWidth: 1,
-        borderColor: "#ddd",
-        backgroundColor: "black",
+        borderColor: '#ddd',
+        backgroundColor: 'black',
     },
     cellText: {
         fontSize: 100,
-        fontFamily: "pixelvt",
-        color: "red",
+        fontFamily: 'pixelvt',
+        color: 'red',
     },
     footer: {
         position: 'relative',

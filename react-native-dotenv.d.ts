@@ -3,4 +3,3 @@ declare module '@env' {
     export const SERVER_URL: string;
     export const PAY_URL: string;
   }
-  

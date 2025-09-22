@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   gradientContainer: {
     flex: 1,
-    backgroundColor: 'black'
+    backgroundColor: 'black',
   },
   menuContainer: {
     flex: 1,
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
   menuButton: {
     paddingVertical: 15,
-    alignItems: 'center',   
+    alignItems: 'center',
     marginBottom: 15,
     backgroundColor: 'blue',
     width: '85%',

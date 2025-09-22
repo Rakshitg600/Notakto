@@ -8,7 +8,7 @@ export const DifficultyModal = ({ visible, onSelect, onClose }: DifficultyModalP
   <Modal visible={visible} transparent animationType="slide">
     <View style={styles.modalContainer}>
       <View style={styles.modalContent}>
-        
+
         {[1, 2, 3, 4, 5].map(level => (
           <TouchableOpacity
             key={level}
@@ -20,7 +20,7 @@ export const DifficultyModal = ({ visible, onSelect, onClose }: DifficultyModalP
             </Text>
           </TouchableOpacity>
         ))}
-        
+
         <TouchableOpacity style={styles.cancelButton} onPress={onClose}>
           <Text style={styles.cancelText}>Cancel</Text>
         </TouchableOpacity>
