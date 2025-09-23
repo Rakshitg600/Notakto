@@ -38,7 +38,13 @@ const LiveMode = ({ onClose }: LiveProps) => {
             resetGame();
         });
 
-        return () => { socket.disconnect(); };
+        return () => {
+      socket.off('gameStart');
+      socket.off('updateBoards');
+      socket.off('gameOver');
+      socket.off('opponentDisconnected');
+      socket.disconnect();
+    };
     }, []);
 
     const handleMove = (boardIndex: number, cellIndex: number) => {

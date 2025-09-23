@@ -1,12 +1,11 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { getAuth, GoogleAuthProvider, signInWithCredential, signOut, onAuthStateChanged } from '@react-native-firebase/auth';
 import { getFirestore, doc, setDoc, getDoc } from '@react-native-firebase/firestore';
-//import { WEB_CLIENT_ID } from '@env';
+import { WEB_CLIENT_ID } from '@env';
 
 // Initialize Firebase services
 const auth = getAuth();
 const firestore = getFirestore();
-const WEB_CLIENT_ID = '200189691429-6if4geqfh2dvnuqp5bev5oa7mnjove4q.apps.googleusercontent.com';
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID,
 });

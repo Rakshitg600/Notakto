@@ -7,7 +7,12 @@ import cors from 'cors';
 import crypto from 'crypto';
 
 const app = express();
-app.use(express.json());
+app.use(express.json({
+  verify: (req, _res, buf) => {
+    // @ts-ignore attach raw body for webhook verification
+    req.rawBody = Buffer.from(buf);
+  },
+}));
 app.use(cors());
 
 const COINBASE_API_KEY = process.env.COINBASE_API_KEY;
@@ -74,5 +79,5 @@ app.post('/webhook/coinbase', (req, res) => {
     res.status(200).send('Webhook Received');
 });
 
-const PORT = process.env.PORT;
+const PORT = Number(process.env.PORT) || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
