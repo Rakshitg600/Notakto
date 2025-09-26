@@ -1,5 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
+  activityIndicator: {
+    marginRight: 8,
+  },
   gradientContainer: {
     flex: 1,
     backgroundColor: 'black',
@@ -19,7 +22,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: -10,
-  },  
+  },
   economyText: {
     fontSize: 35,
     color: 'red',

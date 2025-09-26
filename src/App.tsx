@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Alert, InteractionManager } from 'react-native';
 // Components
 import Menu from './components/Menu';
@@ -50,36 +50,120 @@ const App = () => {
   // Auth user
   const [user, setUser] = useState<any>(null);
 
-  // Initialize background music on mount
-useEffect(() => {
-  const sound = new Sound(
-    require('../android/app/src/main/res/raw/background.mp3'), // Update path as needed
-    (error) => {
-      if (error) {
-        console.log('Failed to load background music', error);
-        return;
+  // Game logic functions moved above AI useEffect
+
+  const isBoardDead = useCallback((board: BoardState) => {
+    const size = boardSize;
+    for (let i = 0; i < size; i++) {
+      const row = board.slice(i * size, (i + 1) * size);
+      const col = Array.from({ length: size }, (_, j) => board[i + j * size]);
+      if (row.every(c => c === 'X') || col.every(c => c === 'X')) {
+        return true;
       }
-      sound.setNumberOfLoops(-1); // Infinite loop
-      setBackgroundSound(sound);
-      if (!mute) sound.play();
     }
-  );
+    const diag1 = Array.from({ length: size }, (_, i) => board[i * (size + 1)]);
+    const diag2 = Array.from({ length: size }, (_, i) => board[(i + 1) * (size - 1)]);
+    return diag1.every(c => c === 'X') || diag2.every(c => c === 'X');
+  }, [boardSize]);
 
-  return () => {
-    sound.stop(() => sound.release());
-  };
-}, []);
+  const handleMove = useCallback((boardIndex: number, cellIndex: number) => {
+    if (boards[boardIndex][cellIndex] !== '' || isBoardDead(boards[boardIndex])) {
+      return;
+    }
 
-// Handle mute/unmute of background music
-useEffect(() => {
-  if (!backgroundSound) return;
+    const newBoards = boards.map((board, idx) =>
+      idx === boardIndex
+        ? [
+            ...board.slice(0, cellIndex),
+            'X',
+            ...board.slice(cellIndex + 1),
+          ]
+        : [...board]
+    );
 
-  if (mute) {
-    backgroundSound.pause();
-  } else {
-    backgroundSound.play();
-  }
-}, [mute, backgroundSound]);
+    playMoveSound(mute);
+    setBoards(newBoards);
+    setGameHistory([...gameHistory, newBoards]);
+
+    if (newBoards.every(board => isBoardDead(board))) {
+      const loser = currentPlayer;
+      const winningPlayer = loser === 1 ? 2 : 1;
+      const isHumanWinner = gameMode === 'vsComputer' && winningPlayer === 1;
+      const isComputerWinner = gameMode === 'vsComputer' && winningPlayer === 2;
+      const rewards = calculateRewards(isHumanWinner, difficulty, numberOfBoards, boardSize);
+
+      if (isHumanWinner) {
+        setCoins(coins + rewards.coins);
+        setXP(XP + rewards.xp);
+      }
+      if (isComputerWinner) {
+        setXP(Math.round(XP + rewards.xp * 0.25));
+      }
+      const winnerName = winningPlayer === 1 ? player1Name : player2Name;
+      setWinner(winnerName);
+      setShowWinnerModal(true);
+      playWinSound(mute);
+      return;
+    }
+
+    setCurrentPlayer(prev => (prev === 1 ? 2 : 1));
+  }, [
+    boards,
+    coins,
+    currentPlayer,
+    difficulty,
+    gameHistory,
+    gameMode,
+    isBoardDead,
+    mute,
+    numberOfBoards,
+    player1Name,
+    player2Name,
+    setCoins,
+    setXP,
+    setBoards,
+    setGameHistory,
+    setShowWinnerModal,
+    setWinner,
+    XP,
+    boardSize,
+  ]);
+
+  // Initialize background music on mount
+  useEffect(() => {
+    const sound = new Sound(
+      require('../android/app/src/main/res/raw/background.mp3'), // Update path as needed
+      error => {
+        if (error) {
+          console.log('Failed to load background music', error);
+          return;
+        }
+        sound.setNumberOfLoops(-1); // Infinite loop
+        setBackgroundSound(sound);
+        sound.play();
+      }
+    );
+
+    return () => {
+      if (sound) {
+        sound.stop(() => sound.release());
+      }
+    };
+  }, []);
+
+  // Handle mute/unmute of background music
+  useEffect(() => {
+    if (!backgroundSound) {
+      return;
+    }
+
+    if (mute) {
+      backgroundSound.pause();
+    } else {
+      backgroundSound.play();
+    }
+  }, [mute, backgroundSound]);
+
   // Load economy data and initialize game
   useEffect(() => {
     const loadData = async () => {
@@ -96,7 +180,7 @@ useEffect(() => {
       }
     };
     loadData();
-  }, []);
+  }, [numberOfBoards, boardSize, setCoins, setXP]);
 
   // Reset game when board configuration changes
   useEffect(() => {
@@ -105,10 +189,12 @@ useEffect(() => {
 
   // Subscribe to Firebase Auth state changes
   useEffect(() => {
-    const subscriber = onAuthStateChangedListener(async (usr: { uid: string; }) => {
+    const subscriber = onAuthStateChangedListener(async (usr: { uid: string }) => {
       setUser(usr);
       if (usr) {
-        const cloudData = await loadEconomyFromFirestore(usr.uid) as { coins: number; experience: number } | null;
+        const cloudData = (await loadEconomyFromFirestore(usr.uid)) as
+          | { coins: number; experience: number }
+          | null;
         if (cloudData) {
           setCoins(cloudData.coins);
           setXP(cloudData.experience);
@@ -124,7 +210,7 @@ useEffect(() => {
       }
     });
     return () => subscriber();
-  }, []);
+  }, [setCoins, setXP]);
 
   // Save economy data locally and to Firestore if signed in
   useEffect(() => {
@@ -147,61 +233,12 @@ useEffect(() => {
       }, 500);
       return () => clearTimeout(timeout);
     }
-  }, [currentPlayer, gameMode, boards, difficulty, boardSize, numberOfBoards]);
-
-  // Game logic functions (unchanged)
-  const isBoardDead = (board: BoardState) => {
-    const size = boardSize;
-    for (let i = 0; i < size; i++) {
-      const row = board.slice(i * size, (i + 1) * size);
-      const col = Array.from({ length: size }, (_, j) => board[i + j * size]);
-      if (row.every(c => c === 'X') || col.every(c => c === 'X')) return true;
-    }
-    const diag1 = Array.from({ length: size }, (_, i) => board[i * (size + 1)]);
-    const diag2 = Array.from({ length: size }, (_, i) => board[(i + 1) * (size - 1)]);
-    return diag1.every(c => c === 'X') || diag2.every(c => c === 'X');
-  };
-
-  const handleMove = (boardIndex: number, cellIndex: number) => {
-    if (boards[boardIndex][cellIndex] !== '' || isBoardDead(boards[boardIndex])) return;
-
-    const newBoards = boards.map((board, idx) =>
-      idx === boardIndex ? [
-        ...board.slice(0, cellIndex),
-        'X',
-        ...board.slice(cellIndex + 1)
-      ] : [...board]
-    );
-    playMoveSound(mute);
-    setBoards(newBoards);
-    setGameHistory([...gameHistory, newBoards]);
-
-    if (newBoards.every(board => isBoardDead(board))) {
-      const loser = currentPlayer;
-      const winner = loser === 1 ? 2 : 1;
-      const isHumanWinner = gameMode === 'vsComputer' && winner === 1;
-      const isComputerWinner = gameMode === 'vsComputer' && winner === 2;
-      const rewards = calculateRewards(isHumanWinner, difficulty, numberOfBoards, boardSize);
-
-      if (isHumanWinner) {
-        setCoins(coins + rewards.coins);
-        setXP(XP + rewards.xp);
-      }
-      if (isComputerWinner) {
-        setXP(Math.round(XP + rewards.xp * 0.25));
-      }
-      const winnerName = winner === 1 ? player1Name : player2Name;
-      setWinner(winnerName);
-      setShowWinnerModal(true);
-      playWinSound(mute);
-      return;
-    }
-
-    setCurrentPlayer(prev => prev === 1 ? 2 : 1);
-  };
+  }, [currentPlayer, gameMode, boards, difficulty, boardSize, numberOfBoards, handleMove]);
 
   const resetGame = (num: number, size: BoardSize) => {
-    const initialBoards = Array(num).fill(null).map(() => Array(size * size).fill(''));
+    const initialBoards = Array(num)
+      .fill(null)
+      .map(() => Array(size * size).fill(''));
     setBoards(initialBoards);
     setCurrentPlayer(1);
     setGameHistory([initialBoards]);
@@ -232,7 +269,7 @@ useEffect(() => {
   const handleSkip = () => {
     if (coins >= 200) {
       setCoins(coins - 200);
-      setCurrentPlayer(prev => prev === 1 ? 2 : 1);
+      setCurrentPlayer(prev => (prev === 1 ? 2 : 1));
     } else {
       Alert.alert('Insufficient Coins', 'You need at least 200 coins to skip a move!');
     }
@@ -270,7 +307,9 @@ useEffect(() => {
           onUndo={handleUndo}
           undoMove={handleUndo}
           resetGame={() => resetGame(numberOfBoards, boardSize)}
-          exitToMenu={() => { setGameMode(null); }}
+          exitToMenu={() => {
+            setGameMode(null);
+          }}
           gameMode={gameMode}
           numberOfBoards={numberOfBoards}
           boardSize={boardSize}
@@ -286,13 +325,14 @@ useEffect(() => {
           canSkip={coins >= 200}
           toggleMute={() => setMute(!mute)}
           isMuted={mute}
-          onAddCoins={(amount) => setCoins(coins + amount)}
+          onAddCoins={amount => setCoins(coins + amount)}
         />
       ) : (
         <Menu
-          startGame={(mode) => {
-            if (mode === 'vsPlayer') setShowNameModal(true);
-            else if (mode === 'vsComputer') {
+          startGame={mode => {
+            if (mode === 'vsPlayer') {
+              setShowNameModal(true);
+            } else if (mode === 'vsComputer') {
               setPlayer1Name('You');
               setPlayer2Name('Computer');
             }
@@ -337,7 +377,7 @@ useEffect(() => {
       />
       <DifficultyModal
         visible={showDifficultyModal}
-        onSelect={(level) => {
+        onSelect={level => {
           setDifficulty(level as DifficultyLevel);
           setShowDifficultyModal(false);
           resetGame(numberOfBoards, boardSize);

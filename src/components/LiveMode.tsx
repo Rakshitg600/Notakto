@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from "react-native";
-import { io } from "socket.io-client";
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native';
+import { io } from 'socket.io-client';
 import {styles} from '../styles/livemode';
 import { LiveProps } from '../services/types';
 import { SERVER_URL } from '@env';
@@ -8,33 +8,33 @@ import { SERVER_URL } from '@env';
 const socket = io(SERVER_URL);
 
 const LiveMode = ({ onClose }: LiveProps) => {
-    const [boards, setBoards] = useState(Array(3).fill('').map(() => ({ grid: Array(9).fill(""), blocked: false })));
+    const [boards, setBoards] = useState(Array(3).fill('').map(() => ({ grid: Array(9).fill(''), blocked: false })));
     const [isMyTurn, setIsMyTurn] = useState(false);
-    const [roomId, setRoomId] = useState("");
-    const [gameState, setGameState] = useState<"searching" | "playing">("searching");
+    const [roomId, setRoomId] = useState('');
+    const [gameState, setGameState] = useState<'searching' | 'playing'>('searching');
 
     useEffect(() => {
         socket.connect();
-        socket.emit("joinGame");
+        socket.emit('joinGame');
 
-        socket.on("gameStart", (data: { roomId: string; firstTurn: string }) => {
+        socket.on('gameStart', (data: { roomId: string; firstTurn: string }) => {
             setRoomId(data.roomId);
-            setGameState("playing");
+            setGameState('playing');
             setIsMyTurn(socket.id === data.firstTurn);
         });
 
-        socket.on("updateBoards", (data: { boards: any[]; nextTurn: string }) => {
+        socket.on('updateBoards', (data: { boards: any[]; nextTurn: string }) => {
             setBoards(data.boards);
             setIsMyTurn(socket.id === data.nextTurn);
         });
 
-        socket.on("gameOver", (data: { loser: string }) => {
-            Alert.alert(data.loser === socket.id ? "You Lost!" : "You Won!");
+        socket.on('gameOver', (data: { loser: string }) => {
+            Alert.alert(data.loser === socket.id ? 'You Lost!' : 'You Won!');
             resetGame();
         });
 
-        socket.on("opponentDisconnected", () => {
-            Alert.alert("Opponent Disconnected!", "Searching for new match...");
+        socket.on('opponentDisconnected', () => {
+            Alert.alert('Opponent Disconnected!', 'Searching for new match...');
             resetGame();
         });
 
@@ -42,21 +42,21 @@ const LiveMode = ({ onClose }: LiveProps) => {
     }, []);
 
     const handleMove = (boardIndex: number, cellIndex: number) => {
-        if (!isMyTurn || boards[boardIndex].blocked || boards[boardIndex].grid[cellIndex] !== "" || !roomId) return;
-        socket.emit("makeMove", { roomId, boardIndex, cellIndex });
+        if (!isMyTurn || boards[boardIndex].blocked || boards[boardIndex].grid[cellIndex] !== '' || !roomId) {return;}
+        socket.emit('makeMove', { roomId, boardIndex, cellIndex });
     };
 
     const resetGame = () => {
-        setBoards(Array(3).fill('').map(() => ({ grid: Array(9).fill(""), blocked: false })));
-        setGameState("searching");
-        socket.emit("joinGame");
+        setBoards(Array(3).fill('').map(() => ({ grid: Array(9).fill(''), blocked: false })));
+        setGameState('searching');
+        socket.emit('joinGame');
     };
 
     return (
         <View style={styles.container}>
-            {gameState === "playing" ? (
+            {gameState === 'playing' ? (
                 <>
-                    <Text style={styles.turnText}>{isMyTurn ? "Your Turn" : "Opponent's Turn"}</Text>
+                    <Text style={styles.turnText}>{isMyTurn ? 'Your Turn' : "Opponent's Turn"}</Text>
                     <ScrollView contentContainerStyle={styles.boardsContainer}>
                         {boards.map((board, boardIndex) => (
                             <View key={boardIndex} style={[styles.board, board.blocked && styles.blockedBoard]}>
@@ -65,7 +65,7 @@ const LiveMode = ({ onClose }: LiveProps) => {
                                         key={cellIndex}
                                         style={styles.cell}
                                         onPress={() => handleMove(boardIndex, cellIndex)}
-                                        disabled={!isMyTurn || board.blocked || cell !== ""}
+                                        disabled={!isMyTurn || board.blocked || cell !== ''}
                                     >
                                         <Text style={styles.cellText}>{cell}</Text>
                                     </TouchableOpacity>

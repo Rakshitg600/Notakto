@@ -16,15 +16,15 @@ const Game = (props: GameProps) => {
     setIsProcessingPayment(true);
     try {
       const response = await fetch(`${PAY_URL}/create-payment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
 
         body: JSON.stringify({
-          amount: "1.00",
-          currency: "INR",
-          customerId: "user_123",
-          customerName: "Test User"
-        })
+          amount: '1.00',
+          currency: 'INR',
+          customerId: 'user_123',
+          customerName: 'Test User',
+        }),
       });
 
       const data = await response.json();
@@ -32,10 +32,10 @@ const Game = (props: GameProps) => {
         Linking.openURL(data.paymentUrl);
         checkPaymentStatus(data.chargeId);
       } else {
-        Alert.alert("Payment Failed", "Could not initiate payment. Please try again.");
+        Alert.alert('Payment Failed', 'Could not initiate payment. Please try again.');
       }
     } catch (error) {
-      Alert.alert("Error", "Payment processing failed");
+      Alert.alert('Error', 'Payment processing failed');
     } finally {
       setIsProcessingPayment(false);
     }
@@ -45,14 +45,14 @@ const Game = (props: GameProps) => {
       const response = await fetch(`${PAY_URL}/order-status/${orderId}`);
       const data = await response.json();
 
-      if (data.status === "paid") {
-        Alert.alert("Success", "100 coins added to your account!");
+      if (data.status === 'paid') {
+        Alert.alert('Success', '100 coins added to your account!');
         props.onAddCoins?.(100);
       } else {
         setTimeout(() => checkPaymentStatus(orderId), 5000);
       }
     } catch (error) {
-      Alert.alert("Error", "Failed to verify payment status");
+      Alert.alert('Error', 'Failed to verify payment status');
     }
   };
   if (props.gameMode === 'liveMatch') {
@@ -124,7 +124,7 @@ const Game = (props: GameProps) => {
                     >
                       <View style={styles.buttonContent}>
                         {isProcessingPayment ? (
-                          <ActivityIndicator color="#fff" style={{ marginRight: 8 }} />
+                          <ActivityIndicator color="#fff" style={styles.activityIndicator} />
                         ) : null}
                         <Text style={styles.menuButtonText}>
                           {isProcessingPayment ? 'Processing...' : 'Buy Coins (100)'}
@@ -132,8 +132,8 @@ const Game = (props: GameProps) => {
                       </View>
                     </TouchableOpacity>
                   </>
-                  
-                  
+
+
                 )}
                 <TouchableOpacity onPress={props.resetGame} style={styles.menuButton}>
                   <Text style={styles.menuButtonText}>Reset</Text>
@@ -152,7 +152,7 @@ const Game = (props: GameProps) => {
                       <Text style={styles.menuButtonText}>Reset Names</Text>
                     </TouchableOpacity>
 
-                    
+
                   </>
                 )}
                 <TouchableOpacity onPress={props.exitToMenu} style={styles.menuButton}>
